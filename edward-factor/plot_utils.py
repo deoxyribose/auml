@@ -1,5 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+def pairplot(x):
+    scattermatrix2 = sns.pairplot(pd.DataFrame(x))
+    #[ax.set_ylim(-40,40) for ax in scattermatrix2.axes.flatten()]
+    #[ax.set_xlim(-40,40) for ax in scattermatrix2.axes.flatten()];
+    plt.show()
+
+def doublepairplot(x,y,D):
+    N = x.shape[0]
+    xy = pd.DataFrame(np.c_[np.r_[x,y],np.r_[np.zeros(N),np.ones(N)]])
+    names = 'abcdefghijk'[:D+1]
+    xy.columns = [i for i in names]
+    sns.set()
+    scattermatrix = sns.pairplot(xy, hue=names[-1], diag_kind= 'kde', vars = [i for i in names[:-1]], plot_kws=dict(alpha=.2))
 
 def plot_pairs(x):
     D = x.shape[1]
